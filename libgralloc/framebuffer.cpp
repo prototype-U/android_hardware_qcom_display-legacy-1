@@ -153,6 +153,9 @@ static int fb_compositionComplete(struct framebuffer_device_t* dev)
 {
     // TODO: Properly implement composition complete callback
 
+#ifdef ANCIENT_GL
+    glFinish();
+#endif
     return 0;
 }
 
