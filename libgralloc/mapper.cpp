@@ -51,7 +51,7 @@ using namespace gralloc;
 static IMemAlloc* getAllocator(int flags)
 {
     IMemAlloc* memalloc;
-    IAllocController* alloc_ctrl = IAllocController::getInstance(true);
+    IAllocController* alloc_ctrl = IAllocController::getInstance();
     memalloc = alloc_ctrl->getAllocator(flags);
     return memalloc;
 }

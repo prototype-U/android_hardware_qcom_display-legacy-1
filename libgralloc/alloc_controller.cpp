@@ -82,21 +82,13 @@ static bool useUncached(int usage)
 }
 
 IAllocController* IAllocController::sController = NULL;
-IAllocController* IAllocController::getInstance(bool useMasterHeap)
+IAllocController* IAllocController::getInstance(void)
 {
     if(sController == NULL) {
-#ifdef USE_ION
         sController = new IonController();
-#else
-        if(useMasterHeap)
-            sController = new PmemAshmemController();
-        else
-            sController = new PmemKernelController();
-#endif
     }
     return sController;
 }
-
 
 #ifdef USE_ION
 //-------------- IonController-----------------------//
@@ -400,7 +392,7 @@ int alloc_buffer(private_handle_t **pHnd, int w, int h, int format, int usage)
     alloc_data data;
     int alignedw, alignedh;
     gralloc::IAllocController* sAlloc =
-        gralloc::IAllocController::getInstance(false);
+        gralloc::IAllocController::getInstance();
     data.base = 0;
     data.fd = -1;
     data.offset = 0;
@@ -428,7 +420,7 @@ int alloc_buffer(private_handle_t **pHnd, int w, int h, int format, int usage)
 void free_buffer(private_handle_t *hnd)
 {
     gralloc::IAllocController* sAlloc =
-        gralloc::IAllocController::getInstance(false);
+        gralloc::IAllocController::getInstance();
     if (hnd && hnd->fd > 0) {
         IMemAlloc* memalloc = sAlloc->getAllocator(hnd->flags);
         memalloc->free_buffer((void*)hnd->base, hnd->size, hnd->offset, hnd->fd);

@@ -108,7 +108,7 @@ inline OvMem::OvMem() {
     mAllocType = 0;
     mBufSz = 0;
     mNumBuffers = 0;
-    mAlloc = gralloc::IAllocController::getInstance(false);
+    mAlloc = gralloc::IAllocController::getInstance();
 }
 
 inline OvMem::~OvMem() { }

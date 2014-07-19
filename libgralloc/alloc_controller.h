@@ -47,7 +47,7 @@ class IAllocController {
 
     virtual ~IAllocController() {};
 
-    static IAllocController* getInstance(bool useMasterHeap);
+    static IAllocController* getInstance(void);
 
     private:
     static IAllocController* sController;
